@@ -1,0 +1,8 @@
+.user-container a{
+    color: whitesmoke;
+    text-decoration: none;   
+}
+
+.user-container a:hover{
+    color: #bbb;
+}

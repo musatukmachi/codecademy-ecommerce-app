@@ -1,0 +1,29 @@
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    box-shadow: 0 1px 0px #111;
+    background-color: #111;
+    color: whitesmoke;
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+    top: 0;
+}
+
+.header-container h4 {
+    margin: 0.5rem;
+}
+
+.header-container i {
+    margin: 0.5rem;
+}
+
+.header-icon {
+    font-size: 1.4rem;
+}
+
+.header-icon:hover {
+    cursor: pointer;
+    color:#bbb;
+}
