@@ -25,6 +25,8 @@ productsRouter.get('/', (req, res) => {
            console.log(q_err);
            res.status(404).send('no products');
        }
+       console.log(q_res);
+       console.log(q_res.rows);
        res.json(q_res.rows);
    });
 });
