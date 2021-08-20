@@ -22,6 +22,9 @@ productsRouter.post('/', (req, res) => {
 
 productsRouter.get('/', (req, res) => {
    pool.query('SELECT * FROM products', (q_err, q_res) => {
+       if(q_err) {
+           res.status(404).send('no products');
+       }
        res.json(q_res.rows);
    });
 });
