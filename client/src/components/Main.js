@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from 'react'
-import '../styles/Main.css'
-import Product from './Product'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import '../styles/Main.css';
+import Product from './Product';
+import axios from 'axios';
+import Spinner from 'react-spinner-material';
 
 function Main() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        axios.get('/api/products')
-        .then(res => res.data)
+        fetch('/api/products')
+        .then(res => res.json())
         .then((data) => setData(data));
     }, []);
 
     const productsArray = () => {
         if (!data) {
-            return 'Loading...';
+            return <Spinner />;
         }
         return data.map(
             (item, index) => <Product key={index} id={item.id} url={item.url} name={item.name} description={item.description} price={item.price} />
