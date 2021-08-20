@@ -38,8 +38,6 @@ app.use('/api/users', usersRouter);
 app.use('/api/orders', ordersRouter);
 app.use('/api/cart', cartRouter);
 
-console.log(process.env.DATABASE_URL);
-
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`);
 });
