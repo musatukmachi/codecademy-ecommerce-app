@@ -1,6 +1,6 @@
 const Pool = require('pg').Pool;
 require('dotenv').config();
-// const devConfig = require('./devConfig');
+const devConfig = require('./devConfig');
 
 // const devConfig = {
 //   user: process.env.PG_USER,
@@ -15,6 +15,6 @@ const proConfig = {
   ssl: { rejectUnauthorized: false },
 };
 
-const pool = new Pool(proConfig);//process.env.NODE_ENV === 'production' ? proConfig : devConfig);
+const pool = new Pool(process.env.NODE_ENV === 'production' ? proConfig : devConfig);
 
 module.exports = pool;

@@ -14,7 +14,7 @@ CREATE TABLE products (
 
 CREATE TABLE orders (
 	id SERIAL PRIMARY KEY,
-  user_id DECIMAL REFERENCES users(id),
+  user_id DECIMAL REFERENCES users(id) UNIQUE,
   shipping_address VARCHAR(50),
   total_price FLOAT,
   created DATE,

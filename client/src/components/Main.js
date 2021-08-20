@@ -6,19 +6,24 @@ import Spinner from 'react-spinner-material';
 
 function Main() {
     const [data, setData] = useState(null);
+    const [order, setOrder] = useState();
 
     useEffect(() => {
-        fetch('/api/products')
-        .then(res => res.json())
+        axios.get('/api/products')
+        .then(res => res.data)
         .then((data) => setData(data));
-    }, []);
 
+        axios.get('/api/orders/getorder')
+        .then(res => res.data)
+        .then(data => setOrder(data[0].id));
+    }, []);
+    
     const productsArray = () => {
         if (!data) {
             return <div style={{marginLeft: '47%'}}><Spinner /></div>;
         }
         return data.map(
-            (item, index) => <Product key={index} id={item.id} url={item.url} name={item.name} description={item.description} price={item.price} />
+            (item, index) => <Product key={index} product_id={item.id} order_id={order} url={item.url} name={item.name} description={item.description} price={item.price} />
         );
     }
 

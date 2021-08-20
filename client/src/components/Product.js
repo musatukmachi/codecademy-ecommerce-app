@@ -15,8 +15,9 @@ function Product(props) {
         else {
             return '£' + props.price;
         }
-    }
-
+    }    
+    console.log('product component order id: ', props.order_id);
+    console.log('product component product id: ', props.product_id);
     return (
         <div className="col">
             <div className="card h-100 shadow-sm">
@@ -25,7 +26,7 @@ function Product(props) {
                 <h5 className="card-title">{props.name}</h5>
                 <p className="card-text">{props.description}</p>
                 <div className="d-flex justify-content-between align-items-center bottom-container">
-                <Cart id={props.id} />
+                <Cart order_id={props.order_id} product_id={props.product_id} />
                 <small className="text">{determinePriceTag()}</small>
                 </div>
             </div>
