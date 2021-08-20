@@ -15,14 +15,14 @@ function Main() {
 
     const productsArray = () => {
         if (!data) {
-            return <Spinner />;
+            return <div style={{marginLeft: '47%'}}><Spinner /></div>;
         }
         return data.map(
             (item, index) => <Product key={index} id={item.id} url={item.url} name={item.name} description={item.description} price={item.price} />
         );
     }
 
-    return (            
+    return (
         <main>
         <section className="py-5 text-center container">
         <div className="row py-lg-5">
