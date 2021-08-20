@@ -12,8 +12,7 @@ productsRouter.post('/', (req, res) => {
         'INSERT INTO products VALUES (DEFAULT, $1, $2, $3) RETURNING id',
     values, (q_err, q_res) => {
         if(q_err) { 
-            console.log(q_err);
-            return;
+            throw q_err;
         }
         console.log(q_res.rows);
         res.json(q_res.rows);
@@ -23,6 +22,7 @@ productsRouter.post('/', (req, res) => {
 productsRouter.get('/', (req, res) => {
    pool.query('SELECT * FROM products', (q_err, q_res) => {
        if(q_err) {
+           console.log(q_err);
            res.status(404).send('no products');
        }
        res.json(q_res.rows);
