@@ -111,6 +111,7 @@ function Checkout() {
                         <label for="country" className="form-label">Country</label>
                         <select className="form-select" id="country" required>
                             <option value="">Choose...</option>
+                            <option>United Kingdom</option>
                             <option>United States</option>
                         </select>
                         <div className="invalid-feedback">
@@ -119,9 +120,10 @@ function Checkout() {
                         </div>
 
                         <div className="col-md-4">
-                        <label for="state" className="form-label">State</label>
+                        <label for="state" className="form-label">City/State</label>
                         <select className="form-select" id="state" required>
                             <option value="">Choose...</option>
+                            <option>London</option>
                             <option>California</option>
                         </select>
                         <div className="invalid-feedback">
