@@ -1,7 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const pool = require('../db/db');
-const keys = require('./keys');
+// const keys = require('./keys');
 
 passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -20,8 +20,8 @@ passport.serializeUser(function(user, done) {
 
 // Use the GoogleStrategy within Passport.
 passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_ID || keys.googleID,
-    clientSecret: process.env.GOOGLE_SECRET || keys.googleSecret,
+    clientID: process.env.GOOGLE_ID,// || keys.googleID,
+    clientSecret: process.env.GOOGLE_SECRET,// || keys.googleSecret,
     callbackURL: "/api/auth/google/callback",
     proxy: true
   },
