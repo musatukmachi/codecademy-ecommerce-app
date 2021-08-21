@@ -16,8 +16,7 @@ function Product(props) {
             return '£' + props.price;
         }
     }    
-    console.log('product component order id: ', props.order_id);
-    console.log('product component product id: ', props.product_id);
+    
     return (
         <div className="col">
             <div className="card h-100 shadow-sm">

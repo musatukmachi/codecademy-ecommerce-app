@@ -43,7 +43,7 @@ function Cart(props) {
             setChange(change ? 0 : 1);
         }
     }
-    if(quantity) console.log('Cart component quantity 3: ', quantity);
+    
     return (
         <div className="btn-group">
                 <button type="button" onClick={addToCart} className="btn btn-sm btn-outline-secondary">Add to Cart</button>

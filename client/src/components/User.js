@@ -12,7 +12,6 @@ function User() {
     }
 
     useEffect(() => {
-        console.log(loggedIn);
         getLoggedInData();
 
         axios.get('/api/auth/user')

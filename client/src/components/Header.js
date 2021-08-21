@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react'
 import '../styles/Header.css'
 import User from './User'
-import axios from 'axios'
+// import axios from 'axios'
 import { CartContext } from '../App'
 
 function Header() {
     const [cartNum, setCartNum] = useState();
     const { change } = useContext(CartContext);
 
-    useEffect(() => {
-        axios.get('/api/cart/total')
-        .then(res => res.data)
-        .then(data => setCartNum(data ? data[0].sum : ''));
+    useEffect(async () => {
+        const response = await fetch('/api/cart/total');
+        // .then(res => res.data)
+        // .then(data => setCartNum(data ? data[0].sum : ''));
+        const total = await response.data;
+        await setCartNum(total ? total[0].sum : '');
     }, [change]);
-    console.log('Header component cart number: ', cartNum);
+    
     return (
         <div className="header-container">
             <User/>
