@@ -4,7 +4,7 @@ import { CartContext } from '../App'
 
 function Cart(props) {
     const [quantity, setQuantity] = useState();
-    const { change, setChange } = useContext(CartContext);
+    const { cartNum, setCartNum } = useContext(CartContext);
     
     useEffect(() => {
         if(props.order_id && props.product_id){
@@ -15,6 +15,7 @@ function Cart(props) {
     }, [props.order_id, props.product_id, quantity]);
 
     const addToCart = () => {
+        if(props.price === -1) return;
         axios({
             method: "post",
             url: "/api/cart/change",
@@ -25,7 +26,7 @@ function Cart(props) {
             }
         });
         setQuantity(quantity+1);
-        setChange(change ? 0 : 1);
+        setCartNum(parseInt(cartNum)+1);
     }
 
     const removeToCart = () => {
@@ -40,7 +41,7 @@ function Cart(props) {
                 }
             });
             setQuantity(quantity-1);
-            setChange(change ? 0 : 1);
+            setCartNum(cartNum-1);
         }
     }
     

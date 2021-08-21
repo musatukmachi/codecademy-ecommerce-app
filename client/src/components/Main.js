@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import '../styles/Main.css';
-import Product from './Product';
-import axios from 'axios';
-import Spinner from 'react-spinner-material';
+import React, { useState, useEffect } from 'react'
+import '../styles/Main.css'
+import Product from './Product'
+import axios from 'axios'
+import Spinner from 'react-spinner-material'
 
 function Main() {
     const [data, setData] = useState(null);

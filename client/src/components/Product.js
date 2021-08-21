@@ -25,7 +25,7 @@ function Product(props) {
                 <h5 className="card-title">{props.name}</h5>
                 <p className="card-text">{props.description}</p>
                 <div className="d-flex justify-content-between align-items-center bottom-container">
-                <Cart order_id={props.order_id} product_id={props.product_id} />
+                <Cart order_id={props.order_id} product_id={props.product_id} price={props.price} />
                 <small className="text">{determinePriceTag()}</small>
                 </div>
             </div>

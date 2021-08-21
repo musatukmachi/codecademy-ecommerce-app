@@ -27,3 +27,8 @@
     cursor: pointer;
     color:#bbb;
 }
+
+.header-container a{
+    color: whitesmoke;
+    text-decoration: none;   
+}
