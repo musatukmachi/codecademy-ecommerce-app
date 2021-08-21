@@ -8,7 +8,7 @@ const isLoggedIn = (req, res, next) => {
     if(req.user){
         next();
     } else {
-        res.status(401).send('Unauthorised access to page');
+        res.redirect('/api/auth/google');
     }
 }
 
@@ -16,20 +16,12 @@ authRouter.get('/check', (req, res) => req.user ? res.send(true) : res.send(fals
 
 authRouter.get('/user', isLoggedIn, (req, res) => res.send(req.user.id));
 
-authRouter.get('/failed', (req, res) => {
-    res.send('Failed Google Login');
-});
-
-authRouter.get('/success', isLoggedIn, (req, res) => {
-    res.send(`Welcome ${req.user.name}`);
-});
-
 authRouter.get('/google',
     passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] })
 );
 
 authRouter.get('/google/callback', 
-    passport.authenticate('google', { failureRedirect: '/failed' }),
+    passport.authenticate('google', { failureRedirect: '/' }),
     function(req, res) {
         res.redirect('/');
     }
