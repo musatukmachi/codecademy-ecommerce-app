@@ -3,7 +3,7 @@ const cartRouter = express.Router();
 const pool = require('../db/db');
 const { isLoggedIn } = require('./auth');
 
-cartRouter.post('/change', isLoggedIn, (req, res) => {
+cartRouter.post('/change', (req, res) => {
     const values = [
         req.body.order_id,
         req.body.product_id,

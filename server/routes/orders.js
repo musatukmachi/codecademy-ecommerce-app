@@ -30,7 +30,7 @@ ordersRouter.post('/', (req, res) => {
     });
 });
 
-ordersRouter.get('/getorder', isLoggedIn, (req, res) => {
+ordersRouter.get('/getorder', (req, res) => {
    pool.query('SELECT id FROM orders WHERE user_id = $1', [ req.user.id ], (q_err, q_res) => {
        res.json(q_res.rows);
    });

@@ -3,6 +3,7 @@ import '../styles/Header.css'
 import User from './User'
 import axios from 'axios'
 import { CartContext } from '../App'
+import { Link } from 'react-router-dom'
 
 function Header() {
     const { cartNum, setCartNum } = useContext(CartContext);
@@ -23,8 +24,8 @@ function Header() {
     return (
         <div className="header-container">
             <User/>
-            <h4><a href="/"><i className="fas fa-store"></i>Store</a></h4>
-            <div><a href="/checkout"><i className="fas fa-shopping-cart header-icon"></i></a><span>{cartNum != 0 ? cartNum : ''}</span></div>
+            <h4><Link to="/"><i className="fas fa-store"></i>Store</Link></h4>
+            <div><Link to="/checkout"><i className="fas fa-shopping-cart header-icon"></i></Link><span>{cartNum != 0 ? cartNum : ''}</span></div>
         </div>
     )
 }
