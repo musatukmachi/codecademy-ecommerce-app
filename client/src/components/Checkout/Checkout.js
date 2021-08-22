@@ -1,29 +1,31 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../../styles/Checkout.css'
-import { CartContext } from '../../App'
 import Spinner from 'react-spinner-material'
 import CartItem from './CartItem'
 import axios from 'axios'
 
-function Checkout() {
+function Checkout(props) {
     const [cartItems, setCartItems] = useState([]);
-    const { cartNum } = useContext(CartContext);
 
     useEffect(() => {
-        axios.get('/api/cart/products')
+        axios.get(`/api/cart/products/${props.order}`)
         .then(res => res.data)
-        .then(data => data.map(item => [ item.product_id, item.quantity ]))
+        .then(data => Array.isArray(data) ? data.map(item => [ item.product_id, item.quantity ]) : [])
         .then(detailsArray => {
-            detailsArray.forEach(details => {
-                axios.get(`/api/products/${details[0]}`)
-                .then(res => res.data)
-                .then(data => data ? setCartItems(arr => [ ...arr, {...data[0], quantity: details[1] } ]) : null);
-            });
+            console.log('details array: ', detailsArray);
+            if(detailsArray.length > 0) {
+                detailsArray.forEach(details => {
+                    axios.get(`/api/products/${details[0]}`)
+                    .then(res => res.data)
+                    .then(data => data ? setCartItems(arr => [ ...arr, {...data[0], quantity: details[1] } ]) : null);
+                });
+            }
         });
     }, []);
     console.log('Cart items: ', cartItems);
     const productItemsArray = () => {
-        if(cartItems.length === 0) return <div><Spinner /></div>;
+        if(props.cartNum === 0) return <div></div>;
+        else if(cartItems.length === 0) return <div><Spinner /></div>;
         // else if (cartItems.reduce((acc, cur) => acc + cur.quantity) !== cartNum) return <div><Spinner /></div>;
         return cartItems.map(
             (item, index) => <CartItem key={index} url={item.url} name={item.name} description={item.description} price={item.price} quantity={item.quantity} />
@@ -42,7 +44,7 @@ function Checkout() {
                 <div className="col-md-5 col-lg-4 order-md-last">
                     <h4 className="d-flex justify-content-between align-items-center mb-3">
                     <span className="text-primary">Your cart</span>
-                    <span className="badge bg-primary rounded-pill">{cartNum}</span>
+                    <span className="badge bg-primary rounded-pill">{props.cartNum}</span>
                     </h4>
                     <ul className="list-group mb-3">
                         {productItemsArray()}

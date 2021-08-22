@@ -1,31 +1,42 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useEffect } from 'react'
 import '../styles/Header.css'
-import User from './User'
 import axios from 'axios'
-import { CartContext } from '../App'
 import { Link } from 'react-router-dom'
 
-function Header() {
-    const { cartNum, setCartNum } = useContext(CartContext);
-
+function Header(props) {
     useEffect(() => {
-        const fetchData = async () => {
-            axios.get('/api/cart/total')
+        if(props.order){
+            axios.get(`/api/cart/total/${props.order}`)
             .then(res => res.data)
-            .then(data => setCartNum(data ? data[0].sum : ''));
-            // const total = await response.data;
-            // setCartNum(total ? total[0].sum : '');
-            // console.log('total: ', total);
-            console.log(cartNum);
+            .then(data => props.cartChange(data ? data[0].sum : ''));
         }
-        fetchData();
-    }, []);
-    
+        console.log('cart number inside: ', props.cartNum);
+        console.log('props.order: ', props.order);
+    }, [props.cartNum]);
+
+    console.log('cart number outside: ', props.cartNum);
+
+    const tempUserStatus = () => {
+        if(props.user){
+            return (
+                <span style={{
+                    paddingLeft: '1rem',
+                    marginLeft: '1rem',
+                    borderLeft: 'whitesmoke 2px solid'
+                    }}>
+                    ID: {props.user}
+                </span>
+            );
+        } else {
+            return <button onClick={props.createTempUser}>Create User</button>;
+        }
+    }
+
     return (
         <div className="header-container">
-            <User/>
+            <div><i className="fab fa-google"></i>{props.userStatus()}{tempUserStatus()}</div>
             <h4><Link to="/"><i className="fas fa-store"></i>Store</Link></h4>
-            <div><Link to="/checkout"><i className="fas fa-shopping-cart header-icon"></i></Link><span>{cartNum != 0 ? cartNum : ''}</span></div>
+            <div><Link to="/checkout"><i className="fas fa-shopping-cart header-icon"></i></Link><span>{props.cartNum ? props.cartNum : ''}</span></div>
         </div>
     )
 }

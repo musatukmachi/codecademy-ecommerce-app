@@ -9,10 +9,14 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const path = require('path');
+const pool = require('./db/db');
 
 const app = express();
 
 const PORT = process.env.PORT || 4000;
+
+// var firstRun = true;
+// const tempUserTime = Date.now();
 
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
@@ -31,6 +35,15 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../client/build")));
 }
 // app.use(express.static(path.join(__dirname, "../client/build")));
+
+// app.use((req, res, next) => {
+//     res.locals.tempUserId = tempUserTime;
+//     if(firstRun === true){
+//         pool.query('INSERT INTO users VALUES ($1)', [ tempUserTime ]);
+//         firstRun = false;
+//     }
+//     next();
+// });
 
 app.use('/api/products', productsRouter);
 app.use('/api/auth', authRouter);

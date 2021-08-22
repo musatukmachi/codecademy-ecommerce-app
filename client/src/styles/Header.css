@@ -32,3 +32,12 @@
     color: whitesmoke;
     text-decoration: none;   
 }
+
+.header-container button {
+    background-color: #111;
+    color: whitesmoke;
+    border: none;
+    border-left: white 2px solid;
+    margin-left: 1rem;
+    padding-left: 1rem;
+}

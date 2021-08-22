@@ -4,18 +4,13 @@ import Product from './Product'
 import axios from 'axios'
 import Spinner from 'react-spinner-material'
 
-function Main() {
+function Main(props) {
     const [data, setData] = useState(null);
-    const [order, setOrder] = useState();
 
     useEffect(() => {
         axios.get('/api/products')
         .then(res => res.data)
-        .then((data) => setData(data));
-
-        axios.get('/api/orders/getorder')
-        .then(res => res.data)
-        .then(data => setOrder(data[0].id));
+        .then((data) => setData(data));        
     }, []);
     
     const productsArray = () => {
@@ -23,7 +18,7 @@ function Main() {
             return <div style={{marginLeft: '47%'}}><Spinner /></div>;
         }
         return data.map(
-            (item, index) => <Product key={index} product_id={item.id} order_id={order} url={item.url} name={item.name} description={item.description} price={item.price} />
+            (item, index) => <Product key={index} product_id={item.id} order_id={props.order} url={item.url} name={item.name} description={item.description} price={item.price} cartNum={props.cartNum} cartChange={props.cartChange} />
         );
     }
 

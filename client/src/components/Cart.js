@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { CartContext } from '../App'
+
 
 function Cart(props) {
     const [quantity, setQuantity] = useState();
-    const { cartNum, setCartNum } = useContext(CartContext);
     
     useEffect(() => {
         if(props.order_id && props.product_id){
@@ -15,6 +14,9 @@ function Cart(props) {
     }, [props.order_id, props.product_id, quantity]);
 
     const addToCart = () => {
+        // if(props.order) return;
+        console.log('order id: ', props.order_id);
+        console.log('quantity: ', quantity);
         if(props.price === -1) return;
         axios({
             method: "post",
@@ -26,7 +28,7 @@ function Cart(props) {
             }
         });
         setQuantity(quantity+1);
-        setCartNum(parseInt(cartNum)+1);
+        props.cartChange(parseInt(props.cartNum)+1);
     }
 
     const removeToCart = () => {
@@ -41,7 +43,7 @@ function Cart(props) {
                 }
             });
             setQuantity(quantity-1);
-            setCartNum(cartNum-1);
+            props.cartChange(props.cartNum-1);
         }
     }
     
